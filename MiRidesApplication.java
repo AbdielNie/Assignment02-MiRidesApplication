@@ -620,7 +620,7 @@ public class MiRidesApplication
      */
     private void displayAllCars()
     {
-        if (numCars == 0)
+        if (numCars == 0 && numSilverServiceCars == 0)
         {
             System.out.println(
                     "There are no cars currently in the system yet.");
