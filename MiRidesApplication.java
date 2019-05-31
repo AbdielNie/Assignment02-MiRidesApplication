@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
 /*
  * Class: MiRidesApplication
@@ -36,6 +37,7 @@ public class MiRidesApplication
      * the menu of this system
      */
     private Menu menu;
+    
 
     /**
      * Constructs the application.
@@ -523,6 +525,7 @@ public class MiRidesApplication
             bookings = newArray;
         }
     }
+    
 
     /**
      * Completes an entered booking.
@@ -626,18 +629,99 @@ public class MiRidesApplication
                     "There are no cars currently in the system yet.");
             return;
         }
+        System.out.println("Enter Type(SS/SD):");
+        String option = menu.getOption();
+        
+        if (option.equals("SS")) {
+        	System.out.println("Enter Sort Order(A/D):");
+            String option2 = menu.getOption();
+            sortSilverServiceCars(option2);
+        	System.out.println("All silverservice cars' information:\n");
+        	for (int i = 0; i < numSilverServiceCars; i++)
+            {
+                System.out.println(silverServiceCars[i].getDetails());
+                System.out.println();
+            }
+        	
+        } else if (option.equals("SD")) {
+        	System.out.println("Enter Sort Order(A/D):");
+        	String option2 = menu.getOption();
+        	sortCars(option2);
+        	System.out.println("All cars' information:\n");
+            for (int i = 0; i < numCars; i++)
+            {
+                System.out.println(cars[i].getDetails());
+                System.out.println();
+            }
+        	
+        }
 
-        System.out.println("All cars' information:\n");
-        for (int i = 0; i < numCars; i++)
-        {
-            System.out.println(cars[i].getDetails());
-            System.out.println();
-        }
-        for (int i = 0; i < numSilverServiceCars; i++)
-        {
-            System.out.println(silverServiceCars[i].getDetails());
-            System.out.println();
-        }
+        
+        
+    }
+    public void sortCars(String order) {
+    	if (order.equals("A")) {
+    		for (int i=0;i<this.cars.length-1;i++) {
+    			for (int j=i+1;j<this.cars.length;j++) {
+    				if (this.silverServiceCars[i]==null || this.silverServiceCars[j]==null) {
+    					continue;
+    				}
+    				if (this.cars[i].getPassengerCapacity()>this.cars[j].getPassengerCapacity()) {
+    					// change  i j car
+    					Car tmpCar = this.cars[i];
+    					this.cars[i] = this.cars[j];
+    					this.cars[j] = tmpCar;
+    				}
+    			}
+    		}
+    	} else if (order.equals("D")) {
+    		for (int i=0;i<this.cars.length-1;i++) {
+    			for (int j=i+1;j<this.cars.length;j++) {
+    				if (this.silverServiceCars[i]==null || this.silverServiceCars[j]==null) {
+    					continue;
+    				}
+    				if (this.cars[i].getPassengerCapacity()<this.cars[j].getPassengerCapacity()) {
+    					// change  i j car
+    					Car tmpCar = this.cars[i];
+    					this.cars[i] = this.cars[j];
+    					this.cars[j] = tmpCar;
+    				}
+    			}
+    		}
+    	}
+    }
+    
+    
+    public void sortSilverServiceCars(String order) {
+    	if (order.equals("A")) {
+    		for (int i=0;i<this.silverServiceCars.length-1;i++) {
+    			for (int j=i+1;j<this.silverServiceCars.length;j++) {
+    				if (this.silverServiceCars[i]==null || this.silverServiceCars[j]==null) {
+    					continue;
+    				}
+    				if (this.silverServiceCars[i].getPassengerCapacity()>this.silverServiceCars[j].getPassengerCapacity()) {
+    					// change  i j car
+    					SilverServiceCar tmpCar = this.silverServiceCars[i];
+    					this.silverServiceCars[i] = this.silverServiceCars[j];
+    					this.silverServiceCars[j] = tmpCar;
+    				}
+    			}
+    		}
+    	} else if (order.equals("D")) {
+    		for (int i=0;i<this.silverServiceCars.length-1;i++) {
+    			for (int j=i+1;j<this.silverServiceCars.length;j++) {
+    				if (this.silverServiceCars[i]==null || this.silverServiceCars[j]==null) {
+    					continue;
+    				}
+    				if (this.silverServiceCars[i].getPassengerCapacity()<this.silverServiceCars[j].getPassengerCapacity()) {
+    					// change  i j car
+    					SilverServiceCar tmpCar = this.silverServiceCars[i];
+    					this.silverServiceCars[i] = this.silverServiceCars[j];
+    					this.silverServiceCars[j] = tmpCar;
+    				}
+    			}
+    		}
+    	}
     }
 
     /**
@@ -1024,3 +1108,4 @@ public class MiRidesApplication
     	
     }
 }
+
